@@ -6,7 +6,7 @@ fun main() {
     // Исходный текст - СООБЩЕНИЕ
     // Зашифрованный текст - АЁФИРХЖСЮ
 
-    val alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ".toCharArray()
+    val alphabet = charArrayOf('А','Б','В','Г','Д','Е','Ё','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ь','Ы','Ъ','Э','Ю','Я')
     val numbers = intArrayOf( 21, 13, 4, 20, 22, 1, 25, 12, 24, 14, 2, 28, 9, 23, 3, 29, 6, 16, 15, 11, 26, 5, 30, 27, 8, 18, 10, 33, 31, 32, 19, 7, 17 )
 
     println("Действие: 1 - шифр, 2 - дешифр")
@@ -31,15 +31,15 @@ fun main() {
 
 fun encrypt(text: String, keyword: String, alphabet: CharArray, numbers: IntArray): String {
     var result = ""
-    var keyIndex = 0
+    var temp = 0
 
     for(char in text){
         if(char in alphabet){
-            val letterIndex = alphabet.indexOf(char)
-            val shift = numbers[keyword[keyIndex % keyword.length].toInt() - 'А'.toInt()]
-            val newIndex = (letterIndex + shift) % alphabet.size
-            result += alphabet[newIndex]
-            keyIndex++
+            val chId = alphabet.indexOf(char)
+            val shift = numbers[keyword[temp % keyword.length].toInt() - 'А'.toInt()]
+            val newId = (chId + shift) % alphabet.size
+            result += alphabet[newId]
+            temp++
         } else {
             result += char
         }
@@ -50,15 +50,15 @@ fun encrypt(text: String, keyword: String, alphabet: CharArray, numbers: IntArra
 
 fun decrypt(text: String, keyword: String, alphabet: CharArray, numbers: IntArray): String {
     var result = ""
-    var keyIndex = 0
+    var temp = 0
 
     for(char in text) {
         if(char in alphabet) {
-            val letterIndex = alphabet.indexOf(char)
-            val shift = numbers[keyword[keyIndex % keyword.length].toInt() - 'А'.toInt()]
-            val newIndex = (letterIndex - shift + alphabet.size) % alphabet.size
-            result += alphabet[newIndex]
-            keyIndex++
+            val chId = alphabet.indexOf(char)
+            val shift = numbers[keyword[temp % keyword.length].toInt() - 'А'.toInt()]
+            val newId = (chId - shift + alphabet.size) % alphabet.size
+            result += alphabet[newId]
+            temp++
         } else {
             result += char
         }
